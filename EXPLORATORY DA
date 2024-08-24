@@ -1,0 +1,23 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+# Load the california housing dataset instead of the boston dataset
+from sklearn.datasets import fetch_california_housing
+housing = fetch_california_housing()
+# create a dataframe from the dataset
+df = pd.DataFrame(housing.data, columns=housing.feature_names)
+df['PRICE'] = housing.target
+# continue with the rest of your code using the new dataframe
+print(df.describe())
+print(df.dtypes)
+sns.histplot(df['PRICE'],kde=True)
+plt.show()
+plt.show()
+print(df.corr())
+sns.boxplot(x=df['PRICE'])
+plt.show()
+df = df[(np.abs(df['PRICE'] - df['PRICE'].mean()) <= (3*df['PRICE'].std()))]
+plt.figure(figsize=(10,8))
+sns.heatmap(df.corr(), annot=True, cmap='coolwarm')
+plt.show()
